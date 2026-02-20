@@ -1,6 +1,11 @@
 const userModel = require("../models/user-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { sendRegistrationEmail } = require("../services/email");
+/* 
+- user register controller
+- POST /register
+*/
 
 module.exports.registerController = async (req, res) => {
   const { email, name, password } = req.body;
@@ -26,8 +31,10 @@ module.exports.registerController = async (req, res) => {
   });
 
   res.cookie("token", token);
-  return res.status(201).json({
+  res.status(201).json({
     message: "user created successfully",
     status: "passed",
   });
+
+  await sendRegistrationEmail(user.email, user.name);
 };

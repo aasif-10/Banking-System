@@ -2,6 +2,11 @@ const userModel = require("../models/user-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+/* 
+- user login controller
+- POST /login
+*/
+
 module.exports.loginController = async (req, res) => {
   const { email, password } = req.body;
   const user = await userModel.findOne({ email });

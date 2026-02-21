@@ -1,5 +1,3 @@
-const express = require("express");
-
 const app = require("./src/app");
 
 const mongooseConnection = require("./src/config/mongoose-connection");

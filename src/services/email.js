@@ -49,4 +49,25 @@ async function sendRegistrationEmail(userEmail, userName) {
   await sendEmail(userEmail, subject, text, html);
 }
 
-module.exports = { sendRegistrationEmail };
+
+async function sendTransactionCompletedEmail(userEmail, userName, amount, toAccount) {
+  const subject = "Transaction Completed Successfully";
+  const text = `Hello ${userName},\n\nYour transaction has been completed successfully.\n\nTransaction Details:\nAmount: $${amount}\nTo Account: ${toAccount}\n\nThank you for using Banking System.`;
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #4CAF50;">Transaction Completed Successfully</h2>
+      <p>Hello <strong>${userName}</strong>,</p>
+      <p>Your transaction has been completed successfully.</p>
+      <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+        <h3 style="margin-top: 0;">Transaction Details:</h3>
+        <p><strong>Amount:</strong> $${amount}</p>
+        <p><strong>To Account:</strong> ${toAccount}</p>
+      </div>
+      <p>Thank you for using Banking System.</p>
+    </div>
+  `;
+
+  await sendEmail(userEmail, subject, text, html);
+}
+
+module.exports = { sendRegistrationEmail ,sendTransactionCompletedEmail};

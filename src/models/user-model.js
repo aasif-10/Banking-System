@@ -16,6 +16,11 @@ const userModel = mongoose.Schema(
       type: String,
       reuqired: [true, "Password is required"],
     },
+    systemUser: {
+      type: Boolean,
+      default: false,
+      immutable: true,
+    },
   },
   { timestamps: true },
 );

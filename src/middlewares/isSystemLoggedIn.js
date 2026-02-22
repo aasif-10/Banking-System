@@ -1,12 +1,11 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user-model");
 
-module.exports.isLoggedIn = async (req, res, next) => {
+module.exports.isSystemLoggedIn = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({
-      message: "User not logged in",
-      status: "failed",
+    return res.status(403).json({
+      message: "Please log in",
     });
   }
 
@@ -18,12 +17,17 @@ module.exports.isLoggedIn = async (req, res, next) => {
   try {
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     const user = await userModel.findOne({ _id: decode.userId });
+
+    if (!user.systemUser) {
+      return res.status(403).json({
+        message: "Only admin access allowed",
+      });
+    }
     req.user = user;
     return next();
   } catch (err) {
-    return res.status(401).json({
-      message: "Token invalid!",
-      status: "failed",
+    return res.status(400).json({
+      message: "error occurred",
     });
   }
 };

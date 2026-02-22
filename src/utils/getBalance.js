@@ -21,7 +21,7 @@ module.exports.getBalance = async (accountId) => {
     {
       $project: {
         _id: 0,
-        balace: { $subtract: ["$totalCredit", "$totalDebit"] },
+        balance: { $subtract: ["$totalCredit", "$totalDebit"] },
       },
     },
   ]);

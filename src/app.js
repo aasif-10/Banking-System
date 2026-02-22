@@ -14,6 +14,7 @@ const userModel = require("../src/models/user-model");
 const accountModel = require("../src/models/account-model");
 const transactionModel = require("../src/models/transaction-model");
 const ledgerModel = require("../src/models/ledger-model");
+const tokenBlacklistModel = require("../src/models/blacklist-model");
 
 // Routes required
 const registerRoute = require("../src/routes/registerRoute");
